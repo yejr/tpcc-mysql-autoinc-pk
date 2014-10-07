@@ -20,25 +20,26 @@ tpcc-mysql是percona基于TPC-C(下面简写成TPCC)衍生出来的产品，专�
 快速使用
 ==========
 
-1、环境初始化
-1.1 创建tpcc数据库
-mysqladmin -S path/mysql.sock -u user -p passwd create tpcc
-
-1.2 初始化表结构
-mysql -S path/mysql.sock -u user -p passwd -f tpcc < create_table-aidpk.sql
-
-2、编译tpcc-mysql
-2.1 进入tpcc-mysql源码目录，执行 make，编译过程无报错即可
-cd path/tpcc-mysql
-cd src
-make
-
-编译完成后，会在上一级目录下生成 tpcc_load、tpcc_start这2个可执行文件。
-
+1、环境初始化<br />
+1.1 创建tpcc数据库<br />
+mysqladmin -S path/mysql.sock -u user -p passwd create tpcc<br />
+<br />
+1.2 初始化表结构<br />
+mysql -S path/mysql.sock -u user -p passwd -f tpcc < create_table-aidpk.sql<br />
+<br />
+2、编译tpcc-mysql<br />
+2.1 进入tpcc-mysql源码目录，执行 make，编译过程无报错即可<br />
+cd path/tpcc-mysql<br />
+cd src<br />
+make<br />
+<br />
+编译完成后，会在上一级目录下生成 tpcc_load、tpcc_start这2个可执行文件。<br />
+<br />
 3、开始测试 <br />
-3.1 利用tpcc_load初始化测试数据，用法和原先的一样
-usage: tpcc_load [server] [DB] [user] [pass] [warehouse]
-
-3.2 利用tpcc_start开始测试，用法也和原先的一样
-
+3.1 利用tpcc_load初始化测试数据，用法和原先的一样<br />
+usage: tpcc_load [server] [DB] [user] [pass] [warehouse]<br />
+<br />
+3.2 利用tpcc_start开始测试，用法也和原先的一样<br />
+<br />
 关于tpcc-mysql的详细用法，可参考文章：http://imysql.com/2012/08/04/tpcc-for-mysql-manual.html
+<br />
