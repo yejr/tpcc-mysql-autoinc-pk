@@ -1,14 +1,17 @@
 #!/bin/bash
 ## 
-## tpcc ×Ô¶¯²âÊÔ½Å±¾£¬½ö¹©²Î¿¼
-## created by yejr(imysql@imysql.com, http://imysql.com, QQ: 4700963, QQÈº: 125572178¡¢272675472)
-## MySQLÖĞÎÄÍø: http://imysql.com
-## Ò¶½ğÈÙ(yejr)
-## Ğ¡Ò¶×ÓËıµù,×°¹ıLinux,Ğ´¹ıPHP,ÓÅ»¯¹ıMySQL,Ä¿Ç°Î§ÈÆÔËÎ¬ÁìÓò´òÔÓ
-## ĞÂÀËÎ¢²©: @Ò¶½ğÈÙ, Î¢ĞÅ¹«ÖÚºÅ: MYSQLÖĞÎÄÍø
-## QQÈº: 125572178¡¢272675472
+## tpcc è‡ªåŠ¨æµ‹è¯•è„šæœ¬ï¼Œä»…ä¾›å‚è€ƒ
+##
+##
+## created by yejr(imysql@imysql.com, http://imysql.com, QQ: 4700963, QQç¾¤: 125572178ã€272675472)
+## MySQLä¸­æ–‡ç½‘: http://imysql.com
+## å¶é‡‘è£(yejr)
+## å°å¶å­å¥¹çˆ¹,è£…è¿‡Linux,å†™è¿‡PHP,ä¼˜åŒ–è¿‡MySQL,ç›®å‰å›´ç»•è¿ç»´é¢†åŸŸæ‰“æ‚
+## æ–°æµªå¾®åš: @å¶é‡‘è£, å¾®ä¿¡å…¬ä¼—å·: MYSQLä¸­æ–‡ç½‘
+## QQç¾¤: 125572178ã€272675472
 ##
 
+#æŒ‡å®šæœ¬åœ°çš„mysql libdirï¼Œå¯æ ¹æ®å®é™…æƒ…å†µè‡ªè¡Œè°ƒæ•´
 export LD_LIBRARY_PATH=/usr/local/mysql/lib/ 
 
 . ~/.bash_profile
@@ -20,8 +23,10 @@ set -e
 BASEDIR="/opt/yejr/tpcc-mysql"
 cd $BASEDIR
 
+#è¿è¡Œè¿‡ç¨‹å…¨éƒ¨è®°å½•æ—¥å¿—åˆ° run_tpcc.log ä¸­
 exec 3>&1 4>&2 1>> run_tpcc.log 2>&1
 
+# ä¸‹é¢å‚æ•°æ ¹æ®å®é™…æƒ…å†µè‡ªè¡Œä¿®æ”¹
 DBIP=1.2.3.4
 DBPORT=3306
 DBUSER='tpcc'
@@ -32,7 +37,7 @@ DBNAME="tpcc${WIREHOUSE}"
 WARMUP=300
 DURING=3600
 
-#³õÊ¼»¯²âÊÔÊı¾İ
+#åˆå§‹åŒ–æµ‹è¯•æ•°æ®
 #./tpcc_load $DBIP:$DBPORT $DBNAME $DBUSER $DBPASSWD $WIREHOUSE
 
 for THREADS in 64 128 256 384 512 640 768 896 1024 1152 1280 1408 1536 1664 1792 1920
@@ -40,20 +45,21 @@ do
 
 ./tpcc_start -h $DBIP -P $DBPORT -d $DBNAME -u $DBUSER -p "${DBPASSWD}" -w $WIREHOUSE -c $THREADS -r $WARMUP -l $DURING > tpcc_${THREADS}_THREADS_${NOW} 2>&1
 
-# Ã¿´Î²âÊÔÍê¶¼ÒªÖØÆô mysqld£¬¿É¸ù¾İÊµ¼ÊÇé¿ö×ÔĞĞµ÷Õû½Å±¾
-/etc/ini.t/mysql stop
+# æ¯æ¬¡æµ‹è¯•å®Œéƒ½è¦é‡å¯ mysqldï¼Œå¯æ ¹æ®å®é™…æƒ…å†µè‡ªè¡Œè°ƒæ•´
+/etc/init.d/mysql stop
 while [ 1 ] 
 do
+ #åˆ¤æ–­mysqldè¿›ç¨‹æ˜¯å¦è¿˜å­˜æ´»çš„ä¾æ®ï¼Œå¯æ ¹æ®å®é™…æƒ…å†µè‡ªè¡Œè°ƒæ•´
  if [ ! -z "ps -ef|grep -v grep|grep 'mysqld'" ] ; then
    sleep 60
  fi
 done
 
-# Çå³ı OS cache
+# æ¸…é™¤ OS cache
 echo 3 > /proc/sys/vm/drop_caches
 
-# ÔÙ´ÎÆô¶¯ mysqld
-/etc/ini.t/mysql start
+# å†æ¬¡å¯åŠ¨ mysqld
+/etc/init.d/mysql start
 sleep 60
 
 done
