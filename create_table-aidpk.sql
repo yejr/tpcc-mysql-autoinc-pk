@@ -131,7 +131,7 @@ CREATE TABLE `order_line` (
   `ol_number` tinyint(4) NOT NULL,
   `ol_i_id` int(11) NOT NULL,
   `ol_supply_w_id` smallint(6) DEFAULT NULL,
-  `ol_delivery_d` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ol_delivery_d` timestamp,
   `ol_quantity` tinyint(4) NOT NULL,
   `ol_amount` decimal(6,2) NOT NULL,
   `ol_dist_info` char(24) NOT NULL,
