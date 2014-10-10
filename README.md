@@ -27,6 +27,7 @@ mysqladmin -S path/mysql.sock -u user -p passwd create tpcc<br />
 1.2 初始化表结构<br />
 mysql -S path/mysql.sock -u user -p passwd -f tpcc < create_table-aidpk.sql<br />
 <br />
+
 2、编译tpcc-mysql<br />
 2.1 进入tpcc-mysql源码目录，执行 make，编译过程无报错即可<br />
 cd path/tpcc-mysql<br />
@@ -35,11 +36,39 @@ make<br />
 <br />
 编译完成后，会在上一级目录下生成 tpcc_load、tpcc_start这2个可执行文件。<br />
 <br />
-3、开始测试 <br />
+
+3、开始测试<br />
 3.1 利用tpcc_load初始化测试数据，用法和原先的一样<br />
 usage: tpcc_load [server] [DB] [user] [pass] [warehouse]<br />
-<br />
+
 3.2 利用tpcc_start开始测试，用法也和原先的一样<br />
+
+3.3 自动化测试脚本<br />
+根据各自的测试环境，调整 run_tpcc.sh 脚本里的相应参数，运行该脚本可进行自动化测试。<br />
+
+关于tpcc-mysql的详细用法，可参考文章：<br />
+1、TPCC-MySQL使用手册：http://imysql.com/2012/08/04/tpcc-for-mysql-manual.html
 <br />
-关于tpcc-mysql的详细用法，可参考文章：http://imysql.com/2012/08/04/tpcc-for-mysql-manual.html
-<br />
+
+最后
+=======
+可以和percona官方分支版本进行对比测试，看看二者的TpmC结果相差多少。<br />
+有任何问题请联系我。<br />
+
+About yejr
+=======
+叶金荣（常用ID：<strong>yejr</strong>）早期混迹于linuxforum、linuxsir等社区，后来转移到chinaunix。2006年建站至今，差不多是国内最早的MySQL技术博客。
+
+从事过LAMP开发，后成为专职MySQL DBA，现围绕运维领域打杂，擅长MySQL优化、数据库架构设计及对比基准压测。
+
+目前仍以<strong>MySQL DBA</strong>自居，偶尔也会作为<strong>Consultant</strong>，2012年被提名成为ORACLE ACE(MySQL)，目前仍不遗余力推广MySQL。
+
+和几位同行发起成立 <strong><a href="http://acmug.com/">ACMUG</a></strong> 以及 <strong><a href="http://www.zhdba.com/">中华数据库协会</a></strong>。
+
+微信公众号：<strong><span style="color: #000000;"><a title="MySQL中文网微信公众号" href="http://weixin.sogou.com/weixin?query=MySQL%E4%B8%AD%E6%96%87%E7%BD%91&amp;_asf=www.sogou.com&amp;_ast=1412034599&amp;w=01019900&amp;p=40040100&amp;ie=utf8&amp;type=2&amp;sut=3805&amp;sst0=1412034598512&amp;lkt=5%2C1412034594859%2C1412034595433">MySQL中文网</a></span></strong>、微博：<strong><span style="color: #000000;"><a href="http://weibo.com/yejinrong">@叶金荣</a></span></strong>、QQ：<strong><a href="tencent://message/?uin=4700963&amp;Site=叶金荣&amp;Menu=yes">4700963</a></strong>
+
+QQ群：<strong><a href="http://shang.qq.com/wpa/qunwpa?idkey=20035ccbe9967180cee2acf170029527c8638f962047ec49774f6b0fe978d265" target="_blank">125572178</a></strong>、<strong><a href="http://shang.qq.com/wpa/qunwpa?idkey=58a42571a4d9fffa338516723d1caec545af3d073438acb434f47ebbb7b2ba54" target="_blank">272675472</a></strong>
+
+邮箱：<a href="mailto:imysql@gmail.com?subject=关于MySQL技术咨询">imysql@gmail.com</a>
+
+搜索引擎中的我：<a title="搜素引擎中的我：谷歌Google" href="https://www.google.com.hk/search?q=MySQL+叶金荣&amp;oq=MySQL+叶金荣" target="_blank">谷歌Google</a>、<a title="搜素引擎中的我：360搜索" href="http://www.so.com/s?q=MySQL+叶金荣" target="_blank">360搜索</a>、<a title="搜素引擎中的我：百度" href="http://www.baidu.com/#wd=MySQL+叶金荣" target="_blank">百度</a>、<a title="搜素引擎中的我：搜狗" href="http://www.sogou.com/web?query=MySQL+叶金荣" target="_blank">搜狗</a>。
