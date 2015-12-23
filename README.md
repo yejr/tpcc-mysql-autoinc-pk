@@ -16,6 +16,15 @@ tpcc-mysql是percona基于TPC-C(下面简写成TPCC)衍生出来的产品，专�
 <br />
 利用该分支版本进行tpcc压力测试的结果表明，有自增列主键时，其TpmC相比没有自增列主键约提升了10%，还是比较可观的。<br />
 
+# 为什么有这个分支
+主要原因在于InnoDB引擎的特性，因为以下几点：
+* InnoDB是索引组织表，更进一步说，是聚集索引组织表；
+* 索引组织表的特点是该表数据存储顺序和索引的逻辑顺序完全一致；
+* InnoDB默认优先选择主键作为聚集索引，否则会选择第一个定义为NOT NULL的唯一索引，若也没有的话则选择InnoDB引擎内置的rowid作为聚集索引；
+* 因此最好要有显式声明一个主键，而且该主键具备顺序特性，所以选择自增列作为主键最为合适；
+* 如果没有自增列做主键，那么写入的数据有可能是在物理及逻辑上都是随机离散存储的，相对更容易导致行锁等待或者死锁的问题。
+综上，才有了这个分支版本。因为只是增加了一个没有业务用途的自增主键列，可以放心使用，正常情况下，不会影响tpcc压测结果的相对准确性。
+
 
 快速使用
 ==========
@@ -55,15 +64,14 @@ usage: tpcc_load [server] [DB] [user] [pass] [warehouse]<br />
 可以和percona官方分支版本进行对比测试，看看二者的TpmC结果相差多少。<br />
 有任何问题请联系我。<br />
 
-About yejr
-=======
-叶金荣（常用ID：<strong>yejr</strong>）早期混迹于linuxforum、linuxsir等社区，后来转移到chinaunix。2006年建站至今，差不多是国内最早的MySQL技术博客。
+# 关于作者
+* 叶金荣
+* CMUG副主席
+* Oracle MySQL ACE
+* 国内最早的MySQL推广者之一
+* 2006年创办首个MySQL中文网站 http://imysql.com	
+* 10余年MySQL经验，擅长MySQL性能优化、架构设计、故障排查
 
-从事过LAMP开发，后成为专职MySQL DBA，现围绕运维领域打杂，擅长MySQL优化、数据库架构设计及对比基准压测。
-
-目前仍以<strong>MySQL DBA</strong>自居，偶尔也会作为<strong>Consultant</strong>，2012年被提名成为ORACLE ACE(MySQL)，目前仍不遗余力推广MySQL。
-
-和几位同行发起成立 <strong><a href="http://acmug.com/">ACMUG</a></strong> 以及 <strong><a href="http://www.zhdba.com/">中华数据库协会</a></strong>。
 
 微信公众号：<strong><span style="color: #000000;"><a title="MySQL中文网微信公众号" href="http://weixin.sogou.com/weixin?query=MySQL%E4%B8%AD%E6%96%87%E7%BD%91&amp;_asf=www.sogou.com&amp;_ast=1412034599&amp;w=01019900&amp;p=40040100&amp;ie=utf8&amp;type=2&amp;sut=3805&amp;sst0=1412034598512&amp;lkt=5%2C1412034594859%2C1412034595433">MySQL中文网</a></span></strong>、微博：<strong><span style="color: #000000;"><a href="http://weibo.com/yejinrong">@叶金荣</a></span></strong>、QQ：<strong><a href="tencent://message/?uin=4700963&amp;Site=叶金荣&amp;Menu=yes">4700963</a></strong>
 
