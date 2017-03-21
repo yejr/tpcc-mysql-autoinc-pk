@@ -14,7 +14,7 @@
 
 MYSQL=/usr/bin/mysql
 TPCCLOAD=./tpcc_load
-TABLESQL=./create_table.sql
+TABLESQL=./create_table-autoinc-pk.sql
 CONSTRAINTSQL=./add_fkey_idx.sql
 DEGREE=`getconf _NPROCESSORS_ONLN`
 
