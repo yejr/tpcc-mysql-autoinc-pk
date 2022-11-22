@@ -71,8 +71,7 @@ tpcc-mysql是percona基于TPC-C(下面简写成TPCC)衍生出来的产品，专�
 
 # 关于作者
 * 叶金荣
-* CMUG副主席
-* Oracle MySQL ACE
+* Oracle MySQL ACE Director
 * 国内最早的MySQL推广者之一
 * 2006年创办首个MySQL中文网站 http://imysql.com	
 * 10余年MySQL经验，擅长MySQL性能优化、架构设计、故障排查
